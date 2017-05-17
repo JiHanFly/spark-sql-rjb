@@ -132,19 +132,20 @@ object customer_extract {
         //将 result_array 结果 转换为Json格式 ，存入 result_string
         for (i <- result_array) {
           var vist_string = """{"mac":"""" + mac +"""",""" +""""in_time":""" + i(0) + "," +""""out_time":""" + i(1) + "," +""""stay_time":""" + (i(1) - i(0)) + "}\n"
-          result_string = result_string + vist_string
+          result_string =  vist_string
+          //将结果集 存入 文件
+    import java.io._
+    val writer = new PrintWriter(new File("\\sparkdata\\visit_records.json"))
+
+    writer.write(result_string)
+    writer.close()
 
         }
 
       }
       i = i + 1
     }
-    //将结果集 存入 文件
-    import java.io._
-    val writer = new PrintWriter(new File("\\sparkdata\\visit_records.json"))
-
-    writer.write(result_string)
-    writer.close()
+    
 
 
   }
